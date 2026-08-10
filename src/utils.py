@@ -1,9 +1,9 @@
 import os
 from datetime import datetime
-
 import pandas as pd
 import requests
 from dotenv import load_dotenv
+import time
 
 
 def get_greeting(current_time: str) -> str:
@@ -50,4 +50,19 @@ def get_currency_rates(currencies: list[str]) -> list[dict]:
     return result
 
 
-print(get_currency_rates(["USD", "EUR"]))
+def get_stock_prices(stocks: list[str]) -> list[dict]:
+    """Получает цены акций через Alpha Vantage API."""
+    load_dotenv()
+    api_key = os.getenv("API_KEY_ALPHAVANTAGE")
+
+    result = []
+    for stock in stocks:
+        url = "https://www.alphavantage.co/query"
+        params = {"function": "GLOBAL_QUOTE", "symbol": stock, "apikey": api_key}
+        response = requests.get(url, params=params)
+        data = response.json()
+        price = float(data["Global Quote"]["05. price"])
+        result.append({"stock": stock, "price": price})
+        time.sleep(15)  # пауза между запросами, чтобы не упереться в лимит API
+
+    return result
