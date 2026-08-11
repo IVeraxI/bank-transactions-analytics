@@ -34,3 +34,18 @@ def test_simple_search_with_invalid_data(sample_operations):
     result = simple_search(sample_operations, "прочее")
     assert len(result) == 1
     assert result[0]["Категория"] == "Прочее"
+
+
+def test_simple_search_non_string_query(sample_operations):
+    result = simple_search(sample_operations, None)
+    assert result == []
+
+
+def test_simple_search_with_non_dict_item():
+    operations = [
+        {"Описание": "Такси", "Категория": "Транспорт"},
+        "не словарь",
+        123,
+    ]
+    result = simple_search(operations, "такси")
+    assert len(result) == 1
