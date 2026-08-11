@@ -90,7 +90,12 @@ def test_get_top_transactions(sample_operations):
 
 def test_get_top_transactions_with_invalid_amount():
     operations = [
-        {"Сумма операции": float("nan"), "Дата платежа": "01.01.2021", "Категория": "A", "Описание": "a"},
+        {
+            "Сумма операции": float("nan"),
+            "Дата платежа": "01.01.2021",
+            "Категория": "A",
+            "Описание": "a",
+        },
         {"Сумма операции": -500.0, "Дата платежа": "02.01.2021", "Категория": "B", "Описание": "b"},
     ]
     result = get_top_transactions(operations)
@@ -100,7 +105,11 @@ def test_get_top_transactions_with_invalid_amount():
 @patch("src.views.get_stock_prices")
 @patch("src.views.get_currency_rates")
 @patch("src.views.read_operations_excel")
-@patch("builtins.open", new_callable=mock_open, read_data='{"user_currencies": ["USD"], "user_stocks": ["AAPL"]}')
+@patch(
+    "builtins.open",
+    new_callable=mock_open,
+    read_data='{"user_currencies": ["USD"], "user_stocks": ["AAPL"]}',
+)
 def test_main_page(mock_file, mock_read_excel, mock_currency_rates, mock_stock_prices):
     mock_read_excel.return_value = [
         {

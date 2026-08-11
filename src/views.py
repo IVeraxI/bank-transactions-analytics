@@ -61,7 +61,9 @@ def get_top_transactions(operations: list[dict]) -> list[dict]:
         if isinstance(amount, (int, float)) and amount == amount:  # amount == amount исключает NaN
             valid_operations.append(operation)
 
-    sorted_operations = sorted(valid_operations, key=lambda op: abs(op["Сумма операции"]), reverse=True)
+    sorted_operations = sorted(
+        valid_operations, key=lambda op: abs(op["Сумма операции"]), reverse=True
+    )
     top_5 = sorted_operations[:5]
 
     result = []

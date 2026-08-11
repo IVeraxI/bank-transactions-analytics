@@ -48,7 +48,7 @@ def spending_by_weekday(operations: list[dict], date: str | None = None) -> dict
 
 
 if __name__ == "__main__":
-    from utils import read_operations_excel
+    from src.utils import read_operations_excel
 
     ops = read_operations_excel("data/operations.xlsx")
     result = spending_by_weekday(ops, "2021-12-21 18:30:15")

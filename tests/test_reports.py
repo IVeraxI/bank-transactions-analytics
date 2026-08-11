@@ -1,6 +1,5 @@
 from datetime import datetime, timedelta
 
-import pandas as pd
 import pytest
 
 from src.reports import spending_by_weekday
@@ -31,7 +30,6 @@ def sample_operations():
 
 
 def test_spending_by_weekday(sample_operations, tmp_path, monkeypatch):
-    report_file = tmp_path / "test_report.json"
     monkeypatch.setattr("src.reports.save_report", lambda filename: (lambda func: func))
 
     result = spending_by_weekday(sample_operations)

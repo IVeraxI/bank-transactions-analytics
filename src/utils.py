@@ -34,6 +34,8 @@ def get_currency_rates(currencies: list[str]) -> list[dict]:
     """Получает курсы валют к рублю через APILayer API."""
     load_dotenv()
     api_key = os.getenv("API_KEY_APILAYER")
+    if api_key is None:
+        raise ValueError("API_KEY_APILAYER не найден в переменных окружения")
 
     url = "https://api.apilayer.com/exchangerates_data/latest"
     headers = {"apikey": api_key}
