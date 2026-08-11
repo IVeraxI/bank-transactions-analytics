@@ -33,6 +33,9 @@ def get_cards_info(operations: list[dict]) -> list[dict]:
         if not isinstance(card_number, str) or not isinstance(amount, (int, float)):
             continue
 
+        if amount != amount:  # проверка на NaN
+            continue
+
         if amount >= 0:
             continue
 
@@ -55,7 +58,7 @@ def get_top_transactions(operations: list[dict]) -> list[dict]:
     valid_operations = []
     for operation in operations:
         amount = operation.get("Сумма операции")
-        if isinstance(amount, (int, float)):
+        if isinstance(amount, (int, float)) and amount == amount:  # amount == amount исключает NaN
             valid_operations.append(operation)
 
     sorted_operations = sorted(valid_operations, key=lambda op: abs(op["Сумма операции"]), reverse=True)
