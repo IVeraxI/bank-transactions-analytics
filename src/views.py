@@ -1,6 +1,6 @@
 import json
 from datetime import datetime
-from utils import get_currency_rates, get_greeting, get_stock_prices, read_operations_excel
+from src.utils import get_currency_rates, get_greeting, get_stock_prices, read_operations_excel
 
 
 def filter_by_month(operations: list[dict], datetime_str: str) -> list[dict]:
