@@ -4,6 +4,8 @@ from functools import wraps
 
 import pandas as pd
 
+from src.config import OPERATIONS_FILE, WEEKDAY_REPORT_FILE
+
 
 def save_report(filename: str = "report.json"):
     """Декоратор для сохранения результата отчёта в файл."""
@@ -20,7 +22,7 @@ def save_report(filename: str = "report.json"):
     return decorator
 
 
-@save_report("data/weekday_report.json")
+@save_report(str(WEEKDAY_REPORT_FILE))
 def spending_by_weekday(operations: list[dict], date: str | None = None) -> dict:
     """Считает средние траты по дням недели за последние 3 месяца."""
     if date is None:
@@ -50,6 +52,6 @@ def spending_by_weekday(operations: list[dict], date: str | None = None) -> dict
 if __name__ == "__main__":
     from src.utils import read_operations_excel
 
-    ops = read_operations_excel("data/operations.xlsx")
+    ops = read_operations_excel(str(OPERATIONS_FILE))
     result = spending_by_weekday(ops, "2021-12-21 18:30:15")
     print(result)

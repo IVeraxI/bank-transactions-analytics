@@ -23,9 +23,10 @@ def simple_search(operations: list[dict], search_string: str) -> list[dict]:
 
 
 if __name__ == "__main__":  # pragma: no cover
+    from src.config import OPERATIONS_FILE
     from src.utils import read_operations_excel
 
-    ops = read_operations_excel("data/operations.xlsx")
+    ops = read_operations_excel(str(OPERATIONS_FILE))
     found = simple_search(ops, "перевод")
     print(len(found))
     print(found[:2])

@@ -1,5 +1,7 @@
 import json
 from datetime import datetime
+
+from src.config import OPERATIONS_FILE, USER_SETTINGS_FILE
 from src.utils import get_currency_rates, get_greeting, get_stock_prices, read_operations_excel
 
 
@@ -80,10 +82,10 @@ def get_top_transactions(operations: list[dict]) -> list[dict]:
 
 def main_page(datetime_str: str) -> str:
     """Формирует данные для главной страницы в формате JSON."""
-    with open("user_settings.json", "r", encoding="utf-8") as file:
+    with open(USER_SETTINGS_FILE, "r", encoding="utf-8") as file:
         settings = json.load(file)
 
-    operations = read_operations_excel("data/operations.xlsx")
+    operations = read_operations_excel(str(OPERATIONS_FILE))
     filtered_operations = filter_by_month(operations, datetime_str)
 
     response = {
